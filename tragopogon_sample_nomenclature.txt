@@ -1,0 +1,13 @@
+Leaf RNA Samples sent to Penn State for MiSeq RNA Sequencing 
+
+Sample ID	Pop-Ind	Species		T. lamottei Lineage	Parent Accession No.	Pop Location
+S1		18-2		lamottei		I			3576			Slope, meadow habitat. Road to Panticosa. 42°43'25.67"N,  0°17'58.43”W, 1153 m.
+S2		25-6		lamottei		I			3582			Hill overlooking Torla. 42°30'27.91"N,  0°40'2.98”W, 1215 m
+S3		9-2		lamottei		II			3569			Road out of Cervera de Pisuerga
+S4		9-17		lamottei		II			3630			Road out of Cervera de Pisuerga
+S5		9-18		lamottei		II			3629			Road out of Cervera de Pisuerga
+
+S6		B-4		crocifolius				3611			Site B: Sicily, Madonie Mts., mountsides of Carbonara Mts., next to Piano Battaglia, 1600 m asl, exp. SW, limestone soil, 37 52'43.32" N, 14 1'4.33" E, Coll. A. Troia
+S7		A-5		crocifolius				3609			Site A: Sicily, Madonie Mts., mountsides of Carbonara Mts., next to Piano Battaglia, 1500 m asl, exp. W, limestone soil, 37 52'41.69" N, 14 0'55 17" E, Coll. A. Troia
+S8		A-3		crocifolius				3607			Site A: Sicily, Madonie Mts., mountsides of Carbonara Mts., next to Piano Battaglia, 1500 m asl, exp. W, limestone soil, 37 52'41.69" N, 14 0'55 17" E, Coll. A. Troia
+

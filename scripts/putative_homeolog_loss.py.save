@@ -1,0 +1,64 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May  9 13:48:20 2017
+
+@author: Lucas Boatwright
+"""
+
+from sys import argv, stderr
+import argparse
+from datetime import datetime
+import pandas as pd
+
+def parse_arguments():
+    """Parse arguments passed to script"""
+    parser = argparse.ArgumentParser(description=
+    "This script is designed to check for putative loss between homeologs \
+    \nusing counts from homeolog COREs used in the PG analysis.\n\n \
+    Example: python {0} -i input".format(argv[0]),
+    formatter_class = argparse.RawDescriptionHelpFormatter)
+    
+    requiredNamed = parser.add_argument_group('required arguments')
+
+    requiredNamed.add_argument("-i", "--INPUT", type=str, required=True,
+    help="Bayes flagged CSV of read counts for Line and Tester", action="store")
+
+    return parser.parse_args() 
+    
+
+def find_putative_loss(file_name):
+    """Given file name, """
+    df = pd.read_csv(file_name)
+    df["Line_mean"] = df[["LINE_TOTAL_1","LINE_TOTAL_2","LINE_TOTAL_3"]
+                            ].mean(axis=1)
+    df["Line_std"] = df[["LINE_TOTAL_1","LINE_TOTAL_2","LINE_TOTAL_3"]
+                            ].std(axis=1)
+    df["Tester_mean"] = df[["TESTER_TOTAL_1","TESTER_TOTAL_2","TESTER_TOTAL_3"]
+                            ].mean(axis=1)
+    df["Tester_std"]=df[["TESTER_TOTAL_1","TESTER_TOTAL_2","TESTER_TOTAL_3"]
+                            ].std(axis=1)
+    
+    df["Line_loss"] = ((df["Tester_mean"] > 0 ) & (df["Line_mean"] == 0 ))
+    df["Tester_loss"] = ((df["Line_mean"] > 0 ) & (df["Tester_mean"] == 0 ))
+        
+    putative_line_loss = df[df["Line_loss"]]
+    putative_tester_loss = df[df["Tester_loss"]]
+    
+    putative_line_loss[["commonID","Line_mean","Line_std",
+                        "Tester_mean","Tester_std"]].to_csv(
+                                            "putative_line_loss.csv", 
+                                            index=False)
+    putative_tester_loss[["commonID","Line_mean","Line_std",
+                        "Tester_mean","Tester_std"]].to_csv(
+                                            "putative_tester_loss.csv", 
+                                            index=False)                            
+    
+    
+if __name__ == "__main__":
+    start = datetime.now()
+    args = parse_arguments()
+    stderr.write("Executed: python {0} -i {1}\n".format(argv[0],args.INPUT))
+    find_putative_loss(args.INPUT)
+    stop = datetime.now()
+    stderr.write("Runtime: {0}\n".format(str(stop - start)))
+
